@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { Eye, EyeOff, ArrowLeft } from "lucide-react"
@@ -12,18 +11,38 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
 import Link from "next/link"
 
+import { loginUser } from '@/apis/authApi';
+import { useRouter } from "next/navigation"
+
+
 export default function LoginPage() {
   const [selectedRole, setSelectedRole] = useState<"admin" | "vendor" | "seller">("vendor")
   const [showPassword, setShowPassword] = useState(false)
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     rememberMe: false,
   })
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const router = useRouter();
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle login logic here
+    console.log(formData);
+    // const res = await loginUser({ ...formData, role: selectedRole });
+    // if (res.status) {
+    if (selectedRole === 'vendor') {
+      router.push('/vendor/dashboard')
+
+    }
+    if (selectedRole === 'seller') {
+      router.push('/supplier/dashboard')
+
+    }  
+    if (selectedRole === 'admin') {
+      router.push('/admin/dashboard')
+
+    } 
+         // }
     console.log("Login attempt:", { ...formData, role: selectedRole })
   }
 
@@ -59,11 +78,10 @@ export default function LoginPage() {
                       key={role.value}
                       type="button"
                       onClick={() => setSelectedRole(role.value as any)}
-                      className={`p-3 rounded-lg border-2 text-sm font-medium transition-all ${
-                        selectedRole === role.value
-                          ? role.color
-                          : "bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100"
-                      }`}
+                      className={`p-3 rounded-lg border-2 text-sm font-medium transition-all ${selectedRole === role.value
+                        ? role.color
+                        : "bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100"
+                        }`}
                     >
                       {role.label}
                     </button>

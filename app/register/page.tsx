@@ -13,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea"
 import { Progress } from "@/components/ui/progress"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 export default function RegisterPage() {
   const [selectedRole, setSelectedRole] = useState<"vendor" | "seller">("vendor")
@@ -40,6 +41,7 @@ export default function RegisterPage() {
 
   const totalSteps = 3
   const progress = (currentStep / totalSteps) * 100
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -50,6 +52,23 @@ export default function RegisterPage() {
 
     setIsSubmitting(false)
     // Handle registration logic here
+    const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault()
+      console.log(formData);
+      // const res = await loginUser({ ...formData, role: selectedRole });
+      // if (res.status) {
+      if (selectedRole === 'vendor') {
+        router.push('/vendor/dashboard')
+
+      }
+      if (selectedRole === 'seller') {
+        router.push('/supplier/dashboard')
+
+      }
+      // }
+      console.log("Login attempt:", { ...formData, role: selectedRole })
+    }
+
     console.log("Registration data:", { ...formData, role: selectedRole })
   }
 
@@ -126,11 +145,10 @@ export default function RegisterPage() {
                             key={role.value}
                             type="button"
                             onClick={() => setSelectedRole(role.value as any)}
-                            className={`p-4 rounded-lg border-2 text-left transition-all ${
-                              selectedRole === role.value
+                            className={`p-4 rounded-lg border-2 text-left transition-all ${selectedRole === role.value
                                 ? role.color
                                 : "bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100"
-                            }`}
+                              }`}
                           >
                             <div className="font-medium">{role.label}</div>
                             <div className="text-sm opacity-75">{role.desc}</div>
