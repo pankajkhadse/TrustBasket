@@ -4,9 +4,32 @@ import { ArrowRight, Users, ShoppingCart, Shield } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import Link from "next/link"
+import VegiAnimation from "../components/vegiAnimation";
+import VerifyAnimation from "../components/verifyAnimation"
+import BasketAnimation from "../components/basketAnimation"
 
 
 export default function HomePage() {
+
+const features = [
+  {
+    icon: VerifyAnimation, // ✅ pass the component, not <VerifyAnimation />
+    title: "Verified Network",
+    description: "Connect with certified suppliers and verified vendors in your area.",
+  },
+  {
+    icon: BasketAnimation,
+    title: "Easy Ordering",
+    description: "Streamlined ordering process with real-time inventory updates.",
+  },
+  {
+    icon: VerifyAnimation,
+    title: "Quality Assured",
+    description: "All suppliers are FSSAI certified ensuring food safety standards.",
+  },
+];
+
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-orange-50">
       {/* Header */}
@@ -71,12 +94,15 @@ export default function HomePage() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="relative"
             >
-              <div className="bg-white rounded-2xl shadow-2xl p-8">
-                <img
+              <div className="bg-white rounded-2xl shadow-2xl p-8 flex items-center justify-center w-full max-w-md mx-auto">
+                {/* <img
                   src="/vegi.jpg?height=400&width=500"
                   alt="TrustBasket Platform"
                   className="w-full h-auto rounded-lg"
-                />
+                /> */}
+                <VegiAnimation/>
+              
+
               </div>
             </motion.div>
           </div>
@@ -93,42 +119,30 @@ export default function HomePage() {
               suppliers.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                icon: Users,
-                title: "Verified Network",
-                description: "Connect with certified suppliers and verified vendors in your area.",
-              },
-              {
-                icon: ShoppingCart,
-                title: "Easy Ordering",
-                description: "Streamlined ordering process with real-time inventory updates.",
-              },
-              {
-                icon: Shield,
-                title: "Quality Assured",
-                description: "All suppliers are FSSAI certified ensuring food safety standards.",
-              },
-            ].map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-              >
-                <Card className="h-full hover:shadow-lg transition-shadow duration-300">
-                  <CardContent className="p-6 text-center">
-                    <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <feature.icon className="h-8 w-8 text-green-600" />
-                    </div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
-                    <p className="text-gray-600">{feature.description}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+  {features.map((feature, index) => {
+    const IconComponent = feature.icon;
+
+    return (
+      <motion.div
+        key={index}
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: index * 0.1 }}
+      >
+        <Card className="h-full hover:shadow-lg transition-shadow duration-300">
+          <CardContent className="p-6 text-center">
+            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+           {IconComponent ? <IconComponent className="w-10 h-10" /> : null}   
+            </div>
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
+            <p className="text-gray-600">{feature.description}</p>
+          </CardContent>
+        </Card>
+      </motion.div>
+    );
+  })}
+</div>
         </div>
       </section>
 
