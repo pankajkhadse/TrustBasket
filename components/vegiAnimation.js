@@ -5,7 +5,8 @@ import animationData from "../lottie-Animation/vegiAnimation.json"; // Adjust th
 
 const vegiAnimation = () => {
   return (
-    <div className="w-64 h-64">
+ <div className="w-[30rem] h-64">
+
       <Lottie animationData={animationData} loop={true} />
     </div>
   );
