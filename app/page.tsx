@@ -55,59 +55,61 @@ const features = [
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}>
-              <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6">
-                Connect Street Food
-                <span className="text-green-600"> Vendors</span> with
-                <span className="text-orange-500"> Quality Suppliers</span>
-              </h1>
-              <p className="text-xl text-gray-600 mb-8">
-                TrustBasket is the B2B marketplace that bridges the gap between street food vendors and certified raw
-                material sellers, ensuring quality and reliability.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link href="/register?role=vendor">
-                  <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white w-full sm:w-auto">
-                    Join as Vendor
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </Link>
-                <Link href="/register?role=seller">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="border-orange-500 text-orange-500 hover:bg-orange-50 w-full sm:w-auto bg-transparent"
-                  >
-                    Join as Seller
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </Link>
-              </div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative"
+  <section className="relative overflow-hidden">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      
+      {/* Text Content on the Left */}
+      <motion.div
+        initial={{ opacity: 0, x: -50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6 }}
+        className="relative z-10"
+      >
+        <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-gray-900 mb-6">
+          Connect Street Food
+          <span className="text-green-600"> Vendors</span> with
+          <span className="text-orange-500"> Quality Suppliers</span>
+        </h1>
+        <p className="text-lg sm:text-xl text-gray-600 mb-8">
+          TrustBasket is the B2B marketplace that bridges the gap between street food vendors and certified raw
+          material sellers, ensuring quality and reliability.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4">
+          <Link href="/register?role=vendor">
+            <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white w-full sm:w-auto">
+              Join as Vendor
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </Link>
+          <Link href="/register?role=seller">
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-orange-500 text-orange-500 hover:bg-orange-50 w-full sm:w-auto bg-transparent"
             >
-              <div className="bg-white rounded-2xl shadow-2xl p-8 flex items-center justify-center w-full max-w-md mx-auto">
-                {/* <img
-                  src="/vegi.jpg?height=400&width=500"
-                  alt="TrustBasket Platform"
-                  className="w-full h-auto rounded-lg"
-                /> */}
-                <VegiAnimation/>
-              
-
-              </div>
-            </motion.div>
-          </div>
+              Join as Seller
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </Link>
         </div>
-      </section>
+      </motion.div>
+
+      {/* Animation on the Right */}
+      <motion.div
+        initial={{ opacity: 0, x: 50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="relative w-full h-[300px] sm:h-[400px] lg:h-full"
+      >
+        <div className="absolute inset-0 w-full h-full">
+          <VegiAnimation />
+        </div>
+      </motion.div>
+
+    </div>
+  </div>
+</section>
 
       {/* Features Section */}
       <section className="py-16 bg-white">
