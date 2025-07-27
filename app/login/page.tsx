@@ -54,33 +54,35 @@ export default function LoginPage() {
         if (formData.rememberMe) {
           localStorage.setItem('token', res.token)
         }
-
         setTimeout(() => {
-          if (res.role === 'admin') {
-            router.push('/admin/dashboard')
-          } else if (res.role === 'vendor') {
-            router.push('/vendor/dashboard')
-          } else if (res.role === 'seller') {
-            router.push('/supplier/dashboard')
+          const role = res?.user?.role || res?.data?.user?.role || res?.role;
+
+          if (role === 'admin') {
+            router.push('/admin/dashboard');
+          } else if (role === 'buyer') {
+            router.push('/vendor/dashboard');
+          } else if (role === 'supplier') {
+            router.push('/supplier/dashboard');
           } else {
-            router.push('/')
+            console.warn("Unknown role:", role);
           }
-        }, 1500)
+        }, 1500);
+
       } else {
         toast.error("Login Failed", {
-        description: res?.message || "An error occurred during login",
-      });
+          description: res?.message || "An error occurred during login",
+        });
         throw new Error(res?.message || "Invalid credentials")
       }
     } catch (err: any) {
       console.error("Login error:", err?.message || err); // better for debugging
 
-toast.error("Login Failed", {
-  description:
-    err?.response?.data?.message ||
-    err?.message ||
-    "An unexpected error occurred during login.",
-});
+      toast.error("Login Failed", {
+        description:
+          err?.response?.data?.message ||
+          err?.message ||
+          "An unexpected error occurred during login.",
+      });
 
     } finally {
       setIsSubmitting(false)
