@@ -22,6 +22,7 @@ export default function AdminNavbar() {
 
   const navItems = [
     { name: "Dashboard", href: "/admin/dashboard", icon: BarChart3 },
+     { name: "Verifications", href: "/admin/verifications", icon: Shield },
     { name: "Users", href: "/admin/users", icon: Users },
     { name: "Orders", href: "/admin/orders", icon: Package },
     { name: "Analytics", href: "/admin/analytics", icon: BarChart3 },
@@ -35,7 +36,7 @@ export default function AdminNavbar() {
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/admin/dashboard" className="flex items-center">
-              <h1 className="text-2xl font-bold text-green-600">StreetServe</h1>
+              <h1 className="text-2xl font-bold text-green-600">Trust Basket</h1>
               <Badge variant="secondary" className="ml-2 text-xs bg-purple-100 text-purple-800">
                 Admin
               </Badge>
