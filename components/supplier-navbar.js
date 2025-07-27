@@ -35,7 +35,7 @@ export default function SupplierNavbar() {
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/supplier/dashboard" className="flex items-center">
-              <h1 className="text-2xl font-bold text-green-600">StreetServe</h1>
+              <h1 className="text-2xl font-bold text-green-600">Trust Basket</h1>
               <Badge variant="secondary" className="ml-2 text-xs bg-orange-100 text-orange-800">
                 Supplier
               </Badge>

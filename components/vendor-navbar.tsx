@@ -22,6 +22,7 @@ export default function VendorNavbar() {
 
   const navItems = [
     { name: "Dashboard", href: "/vendor/dashboard", icon: BarChart3 },
+    { name: "Marketplace", href: "/vendor/marketplace", icon: BarChart3 },
     { name: "Orders", href: "/vendor/orders", icon: ShoppingCart },
     { name: "Products", href: "/vendor/products", icon: Package },
     { name: "Suppliers", href: "/vendor/suppliers", icon: Users },
@@ -34,7 +35,7 @@ export default function VendorNavbar() {
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/vendor/dashboard" className="flex items-center">
-              <h1 className="text-2xl font-bold text-green-600">StreetServe</h1>
+              <h1 className="text-2xl font-bold text-green-600">Trust Basket</h1>
               <Badge variant="secondary" className="ml-2 text-xs">
                 Vendor
               </Badge>

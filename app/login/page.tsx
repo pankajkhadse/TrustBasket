@@ -207,8 +207,8 @@ toast.error("Login Failed", {
                   )}
                 </Button>
               </form>
-
-              {/* Register Link */}
+       
+             {/* Register Link */}
               <div className="mt-6 text-center text-sm text-muted-foreground">
                 <p>
                   Don't have an account?{" "}
