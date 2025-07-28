@@ -107,7 +107,7 @@ toast.error("Login Failed", {
                 Welcome Back
               </CardTitle>
               <CardDescription className="text-muted-foreground mt-2">
-                Sign in to your TrustBasket account
+                Sign in to your Vyapar Mitra account
               </CardDescription>
             </CardHeader>
 
