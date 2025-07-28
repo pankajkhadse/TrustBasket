@@ -13,3 +13,4 @@ const vegiAnimation = () => {
 };
 
 export default vegiAnimation;
+
