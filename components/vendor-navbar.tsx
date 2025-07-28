@@ -35,7 +35,7 @@ export default function VendorNavbar() {
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/vendor/dashboard" className="flex items-center">
-              <h1 className="text-2xl font-bold text-green-600">Trust Basket</h1>
+              <h1 className="text-2xl font-bold text-green-600">Vyapar Mitra</h1>
               <Badge variant="secondary" className="ml-2 text-xs">
                 Vendor
               </Badge>

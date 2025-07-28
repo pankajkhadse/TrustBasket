@@ -249,7 +249,7 @@ export default function RegisterPage() {
                 </div>
               </div>
               <CardTitle className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
-                Join TrustBasket
+                Join Vyapar Mitra
               </CardTitle>
               <CardDescription className="text-muted-foreground mt-2">
                 Create your account and start connecting with the community

@@ -26,7 +26,7 @@ export default function AdminNavbar() {
     { name: "Users", href: "/admin/users", icon: Users },
     { name: "Orders", href: "/admin/orders", icon: Package },
     { name: "Analytics", href: "/admin/analytics", icon: BarChart3 },
-    { name: "Settings", href: "/admin/settings", icon: Settings },
+    // { name: "Settings", href: "/admin/settings", icon: Settings },
   ]
 
   return (
@@ -36,7 +36,7 @@ export default function AdminNavbar() {
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/admin/dashboard" className="flex items-center">
-              <h1 className="text-2xl font-bold text-green-600">Trust Basket</h1>
+              <h1 className="text-2xl font-bold text-green-600">Vyapar Mitra</h1>
               <Badge variant="secondary" className="ml-2 text-xs bg-purple-100 text-purple-800">
                 Admin
               </Badge>

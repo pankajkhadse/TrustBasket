@@ -38,7 +38,7 @@ const features = [
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <h1 className="text-2xl font-bold text-green-600">TrustBasket</h1>
+                <h1 className="text-2xl font-bold text-green-600">Vyapar Mitra</h1>
               </div>
             </div>
             <div className="flex items-center space-x-4">
@@ -72,7 +72,7 @@ const features = [
           <span className="text-orange-500"> Quality Suppliers</span>
         </h1>
         <p className="text-lg sm:text-xl text-gray-600 mb-8">
-          TrustBasket is the B2B marketplace that bridges the gap between street food vendors and certified raw
+          Vyapar Mitra is the B2B marketplace that bridges the gap between street food vendors and certified raw
           material sellers, ensuring quality and reliability.
         </p>
         <div className="flex flex-col sm:flex-row gap-4">
@@ -115,7 +115,7 @@ const features = [
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Why Choose TrustBasket?</h2>
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Why Choose Vyapar Mitra?</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               We provide a comprehensive platform that ensures quality, reliability, and growth for both vendors and
               suppliers.
@@ -177,7 +177,7 @@ const features = [
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="col-span-1 md:col-span-2">
-              <h3 className="text-2xl font-bold text-green-400 mb-4">TrustBasket</h3>
+              <h3 className="text-2xl font-bold text-green-400 mb-4">Vyapar Mitra</h3>
               <p className="text-gray-300 mb-4">
                 Connecting street food vendors with quality suppliers for a better food ecosystem.
               </p>
@@ -219,7 +219,7 @@ const features = [
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center">
-            <p className="text-gray-400">&copy; 2024 TrustBasket. All rights reserved.</p>
+            <p className="text-gray-400">&copy; 2024 Vyapar Mitra. All rights reserved.</p>
           </div>
         </div>
       </footer>
