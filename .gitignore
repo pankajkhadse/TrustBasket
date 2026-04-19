@@ -19,7 +19,6 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files
-.env*
 !.env.example
 
 # vercel
@@ -54,3 +53,8 @@ coverage/
 # Logs
 logs/
 *.log
+
+# Batch files
+config.bat
+temp_auto_push.bat
+temp_interactive_push.bat
