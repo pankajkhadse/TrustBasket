@@ -1,0 +1,216 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id                    String        @id @default(uuid())
+  clerkId               String        @unique
+  name                  String
+  phone                 String?       @unique
+  email                 String?
+  role                  Role
+  status                UserStatus    @default(PENDING)
+  address               String?
+  lng                   Float?
+  lat                   Float?
+  supplierType          SupplierType?
+  shopName              String?
+  samplePhotoUrl        String?
+  shopImgUrl            String?
+  idProofUrl            String?
+  gstNumber             String?
+  verificationNotes     String?
+  verifiedAt            DateTime?
+  verifiedByAdminId     String?
+  ratingStars           Float         @default(0)
+  reviewCount           Int           @default(0)
+  isBlocked             Boolean       @default(false)
+  blockedReason         String?
+  lastLoginAt           DateTime?
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+  deletedAt             DateTime?
+  groupOrdersAsSupplier GroupOrder[]  @relation("SupplierGroupOrders")
+  groupOrdersAsVendor   GroupOrder[]  @relation("VendorGroupOrders")
+  materials             Material[]
+  buyerOrders           Order[]       @relation("BuyerOrders")
+  supplierOrders        Order[]       @relation("SupplierOrders")
+  reviewsGiven          Review[]      @relation("ReviewerReviews")
+  reviewsReceived       Review[]      @relation("SupplierReviews")
+  verifiedByAdmin       User?         @relation("AdminVerifications", fields: [verifiedByAdminId], references: [id])
+  verifiedSuppliers     User[]        @relation("AdminVerifications")
+  vendorChats           Chat[]        @relation("VendorChats")
+  supplierChats         Chat[]        @relation("SupplierChats")
+  messages              Message[]
+
+  @@index([role])
+  @@index([status])
+  @@index([isBlocked])
+  @@index([deletedAt])
+}
+
+model Material {
+  id             String       @id @default(uuid())
+  name           String
+  description    String?
+  category       String?
+  pricePerUnit   Float
+  unit           String       @default("kg")
+  stockAvailable Int?
+  imageUrl       String?
+  supplierId     String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  groupOrders    GroupOrder[]
+  supplier       User         @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+  orderItems     OrderItem[]
+
+  @@index([supplierId])
+  @@index([category])
+}
+
+model Order {
+  id              String      @id @default(uuid())
+  buyerId         String
+  supplierId      String
+  totalAmount     Float
+  status          OrderStatus @default(PENDING)
+  deliveryAddress String
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  buyer           User        @relation("BuyerOrders", fields: [buyerId], references: [id])
+  supplier        User        @relation("SupplierOrders", fields: [supplierId], references: [id])
+  items           OrderItem[]
+  reviews         Review[]
+  chat            Chat?
+
+  @@index([buyerId])
+  @@index([supplierId])
+  @@index([status])
+}
+
+model OrderItem {
+  id              String   @id @default(uuid())
+  orderId         String
+  materialId      String
+  quantity        Int
+  priceAtPurchase Float
+  material        Material @relation(fields: [materialId], references: [id])
+  order           Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId])
+  @@index([materialId])
+}
+
+model Review {
+  id         String   @id @default(uuid())
+  reviewerId String
+  supplierId String
+  orderId    String?
+  rating     Int
+  comment    String?
+  createdAt  DateTime @default(now())
+  order      Order?   @relation(fields: [orderId], references: [id])
+  reviewer   User     @relation("ReviewerReviews", fields: [reviewerId], references: [id])
+  supplier   User     @relation("SupplierReviews", fields: [supplierId], references: [id])
+
+  @@unique([reviewerId, orderId])
+  @@index([supplierId])
+}
+
+model GroupOrder {
+  id         String           @id @default(uuid())
+  vendorId   String
+  supplierId String
+  materialId String
+  status     GroupOrderStatus @default(OPEN)
+  createdAt  DateTime         @default(now())
+  material   Material         @relation(fields: [materialId], references: [id])
+  supplier   User             @relation("SupplierGroupOrders", fields: [supplierId], references: [id])
+  vendor     User             @relation("VendorGroupOrders", fields: [vendorId], references: [id])
+
+  @@index([vendorId])
+  @@index([supplierId])
+  @@index([materialId])
+  @@index([status])
+}
+
+model AuditLog {
+  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tablename String
+  action    String
+  recordid  String?
+  olddata   Json?
+  newdata   Json?
+  actorid   String?
+  createdat DateTime? @default(now()) @db.Timestamptz(6)
+}
+
+model Chat {
+  id         String   @id @default(uuid())
+  orderId    String   @unique
+  vendorId   String
+  supplierId String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  order    Order     @relation(fields: [orderId], references: [id])
+  vendor   User      @relation("VendorChats", fields: [vendorId], references: [id])
+  supplier User      @relation("SupplierChats", fields: [supplierId], references: [id])
+  messages Message[]
+
+  @@index([vendorId])
+  @@index([supplierId])
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  chatId    String
+  senderId  String
+  text      String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  chat   Chat @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  sender User @relation(fields: [senderId], references: [id])
+
+  @@index([chatId])
+  @@index([senderId])
+}
+
+enum Role {
+  BUYER
+  SUPPLIER
+  ADMIN
+}
+
+enum SupplierType {
+  FARMER
+  VENDOR
+}
+
+enum UserStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum OrderStatus {
+  PENDING
+  ACCEPTED
+  IN_TRANSIT
+  DELIVERED
+  CANCELLED
+}
+
+enum GroupOrderStatus {
+  OPEN
+  CLOSED
+  DELIVERED
+}

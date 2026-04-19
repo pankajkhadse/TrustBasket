@@ -4,30 +4,32 @@ import { ArrowRight, Users, ShoppingCart, Shield } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import Link from "next/link"
+import { useAuth, UserButton } from "@clerk/nextjs"
 import VegiAnimation from "../components/vegiAnimation";
 import VerifyAnimation from "../components/verifyAnimation"
 import BasketAnimation from "../components/basketAnimation"
 
 
 export default function HomePage() {
+  const { userId, isLoaded } = useAuth()
 
-const features = [
-  {
-    icon: VerifyAnimation, // ✅ pass the component, not <VerifyAnimation />
-    title: "Verified Network",
-    description: "Connect with certified suppliers and verified vendors in your area.",
-  },
-  {
-    icon: BasketAnimation,
-    title: "Easy Ordering",
-    description: "Streamlined ordering process with real-time inventory updates.",
-  },
-  {
-    icon: VerifyAnimation,
-    title: "Quality Assured",
-    description: "All suppliers are FSSAI certified ensuring food safety standards.",
-  },
-];
+  const features = [
+    {
+      icon: VerifyAnimation, // ✅ pass the component, not <VerifyAnimation />
+      title: "Verified Network",
+      description: "Connect with certified suppliers and verified vendors in your area.",
+    },
+    {
+      icon: BasketAnimation,
+      title: "Easy Ordering",
+      description: "Streamlined ordering process with real-time inventory updates.",
+    },
+    {
+      icon: VerifyAnimation,
+      title: "Quality Assured",
+      description: "All suppliers are FSSAI certified ensuring food safety standards.",
+    },
+  ];
 
 
   return (
@@ -42,74 +44,87 @@ const features = [
               </div>
             </div>
             <div className="flex items-center space-x-4">
-              <Link href="/login">
-                <Button variant="outline" className="text-gray-700 hover:text-green-600">
-                  Login
-                </Button>
-              </Link>
-              <Link href="/register">
-                <Button className="bg-green-600 hover:bg-green-700 text-white">Get Started</Button>
-              </Link>
+              {!isLoaded ? null : userId ? (
+                <>
+                  <Link href="/login">
+                    <Button variant="outline" className="text-gray-700 hover:text-green-600">
+                      Dashboard
+                    </Button>
+                  </Link>
+                  <UserButton afterSignOutUrl="/" />
+                </>
+              ) : (
+                <>
+                  <Link href="/login">
+                    <Button variant="outline" className="text-gray-700 hover:text-green-600">
+                      Login
+                    </Button>
+                  </Link>
+                  <Link href="/register">
+                    <Button className="bg-green-600 hover:bg-green-700 text-white">Get Started</Button>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>
       </header>
 
-  <section className="relative overflow-hidden">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-      
-      {/* Text Content on the Left */}
-      <motion.div
-        initial={{ opacity: 0, x: -50 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.6 }}
-        className="relative z-10"
-      >
-        <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-gray-900 mb-6">
-          Connect Street Food
-          <span className="text-green-600"> Vendors</span> with
-          <span className="text-orange-500"> Quality Suppliers</span>
-        </h1>
-        <p className="text-lg sm:text-xl text-gray-600 mb-8">
-          Vyapar Mitra is the B2B marketplace that bridges the gap between street food vendors and certified raw
-          material sellers, ensuring quality and reliability.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4">
-          <Link href="/register?role=vendor">
-            <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white w-full sm:w-auto">
-              Join as Vendor
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          </Link>
-          <Link href="/register?role=seller">
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-orange-500 text-orange-500 hover:bg-orange-50 w-full sm:w-auto bg-transparent"
+      <section className="relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+            {/* Text Content on the Left */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              className="relative z-10"
             >
-              Join as Seller
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          </Link>
-        </div>
-      </motion.div>
+              <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-gray-900 mb-6">
+                Connect Street Food
+                <span className="text-green-600"> Vendors</span> with
+                <span className="text-orange-500"> Quality Suppliers</span>
+              </h1>
+              <p className="text-lg sm:text-xl text-gray-600 mb-8">
+                Vyapar Mitra is the B2B marketplace that bridges the gap between street food vendors and certified raw
+                material sellers, ensuring quality and reliability.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link href="/register?role=vendor">
+                  <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white w-full sm:w-auto">
+                    Join as Vendor
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
+                <Link href="/register?role=seller">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="border-orange-500 text-orange-500 hover:bg-orange-50 w-full sm:w-auto bg-transparent"
+                  >
+                    Join as Seller
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
+              </div>
+            </motion.div>
 
-      {/* Animation on the Right */}
-      <motion.div
-        initial={{ opacity: 0, x: 50 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        className="relative w-full h-[300px] sm:h-[400px] lg:h-full"
-      >
-        <div className="absolute inset-0 w-full h-full">
-          <VegiAnimation />
-        </div>
-      </motion.div>
+            {/* Animation on the Right */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="relative w-full h-[300px] sm:h-[400px] lg:h-full"
+            >
+              <div className="absolute inset-0 w-full h-full">
+                <VegiAnimation />
+              </div>
+            </motion.div>
 
-    </div>
-  </div>
-</section>
+          </div>
+        </div>
+      </section>
 
       {/* Features Section */}
       <section className="py-16 bg-white">
@@ -121,30 +136,30 @@ const features = [
               suppliers.
             </p>
           </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-  {features.map((feature, index) => {
-    const IconComponent = feature.icon;
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {features.map((feature, index) => {
+              const IconComponent = feature.icon;
 
-    return (
-      <motion.div
-        key={index}
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: index * 0.1 }}
-      >
-        <Card className="h-full hover:shadow-lg transition-shadow duration-300">
-          <CardContent className="p-6 text-center">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-           {IconComponent ? <IconComponent className="w-10 h-10" /> : null}   
-            </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
-            <p className="text-gray-600">{feature.description}</p>
-          </CardContent>
-        </Card>
-      </motion.div>
-    );
-  })}
-</div>
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                >
+                  <Card className="h-full hover:shadow-lg transition-shadow duration-300">
+                    <CardContent className="p-6 text-center">
+                      <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        {IconComponent ? <IconComponent className="w-10 h-10" /> : null}
+                      </div>
+                      <h3 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
+                      <p className="text-gray-600">{feature.description}</p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
